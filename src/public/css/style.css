@@ -1,0 +1,49 @@
+* {
+    font-family: 'Indie Flower', cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    height: 750px;
+    background: #8E2DE2;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, hsla(260, 100%, 44%, 0.719), #8E2DE2);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, hsla(260, 100%, 44%, 0.712), #8E2DE2);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 158px 0;
+}
+
+.contenedor {
+    width: 100%;
+    overflow: hidden;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+h1 {
+    padding: 30px;
+}
+
+#font {
+    color: black;
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+a {
+    border-radius: 67px 67px 67px 67px;
+    -moz-border-radius: 67px 67px 67px 67px;
+    -webkit-border-radius: 67px 67px 67px 67px;
+    border: 0px solid #000000;
+}
+
+footer {
+    margin-top: 50px;
+}
