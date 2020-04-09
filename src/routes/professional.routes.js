@@ -9,6 +9,8 @@ let Especialidad = require('../models/especialidad')
 app.get('/', (req, res) => {
     
     Profesional.find({})
+               .populate('zona')
+               .populate('especialidad')
                .exec( (err, profesionales) => {
                    if(err){
                        return res.status(500).json({
@@ -128,8 +130,8 @@ app.post('/', (req, res) => {
         telefono: body.telefono,
         email: body.email,
         img: body.img,
-        zona: body.zona,
-        especialidad: body.especialidad,
+        zona: body.selectedZone,
+        especialidad: body.selectedEspeciality,
         descripcion:body.descripcion
     })
 

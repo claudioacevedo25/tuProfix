@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import '../../node_modules/aos/dist/aos'; 
 import AOS from 'aos'; 
+// import 'materialize-css/dist/css/materialize.min.css'
+// import 'materialize-css/dist/js/materialize'
+import M from 'materialize-css'
+import {Button,Icon} from 'react-materialize'
 
 
 class App extends Component {
 
         constructor(props, context) { 
           super(props, context); 
+          
           AOS.init(); 
           this.state = {
               nombre:'',
@@ -19,20 +24,6 @@ class App extends Component {
               zonas:[],
               especialidades:[],
               selectedZone:'',
-              selectEquipo:'',
-              equipos:[{
-                  id:1,
-                  detalle: 'Belgrano'
-              },{
-                  id:2,
-                  detalle: 'River'
-              },{
-                  id:3,
-                  detalle: 'Racing'
-              },{
-                  id:4,
-                  detalle: 'Chacarita Jr'
-              }],
               selectedEspeciality:"",
               _id:''
           }
@@ -70,9 +61,18 @@ class App extends Component {
         
 
         componentDidMount(){
+           
             this.getProfesionales();
             this.getZonas();
             this.getEspecialidades();
+            $(document).ready(function() {
+                $('input#input_text, textarea#textarea2').characterCounter();
+              });
+
+              $(document).ready(function(){
+                $('.fixed-action-btn').floatingActionButton();
+              });
+            
         
         }
 
@@ -95,7 +95,7 @@ class App extends Component {
             .then( res => res.json())
             .then(data => {
                 this.setState({especialidades:data.especialidad});
-                console.log(this.state.especialidades[0].detalle);
+               
             })
         }
 
@@ -104,6 +104,7 @@ class App extends Component {
             .then( res => res.json())
             .then(data => {
                 this.setState({profesionales:data.profesionales});
+                console.log(data.profesionales[0].zona.detalle)
                
             })
         }
@@ -135,11 +136,13 @@ class App extends Component {
                     </div>
 
                 <main className="center-align">
+
+                
                    
                     <div>
                         <div className="row">
                             <div className="col s12 ">
-                                <h1>BIENVENIDOS A TU PROFIX</h1>
+                                <h1>BIENVENIDOS A PROFIX</h1>
                             </div>
                             <div className="col s6"><a href="#formOfer" className="waves-effect waves-light  hoverable yellow accent-2" id="font">Quiero ofrecer mis servicios</a></div>
                             <div className="col s6 "><a href="#services" className="waves-effect waves-light  hoverable light-green accent-3" id="font">Necesito contratar un servicio</a></div>
@@ -158,24 +161,24 @@ class App extends Component {
                         <div className="input-field col s6">
                             <i className="material-icons prefix">account_circle</i>
                             <input onChange={this.handleChange} id="first_name" type="text" className="validate" name='nombre' required/>
-                            <label for="first_name">Nombre</label>
+                            <label  htmlFor="first_name">Nombre</label>
                         </div>
                         <div className="input-field col s6">
                             <input onChange={this.handleChange} id="last_name" type="text" className="validate" name='apellido' required/>
-                            <label for="last_name">Apellido</label>
+                            <label  htmlFor="last_name">Apellido</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s6">
                             <i className="material-icons prefix">account_circle</i>
                             <input onChange={this.handleChange} id="dni" type="number" className="validate" name='dni' required/>
-                            <label for="first_name">Dni</label>
+                            <label  htmlFor="first_name">Dni</label>
                             <span className="helper-text" data-error="Ingrese solo numeros" data-success="OK"></span>
                         </div>
                         <div className="input-field col s6">
                             <i className="material-icons prefix">phone</i>
                             <input onChange={this.handleChange} id="phone" type="number" className="validate" name='telefono' required/>
-                            <label for="last_name">Telefono</label>
+                            <label htmlFor="last_name">Telefono</label>
                             <span className="helper-text" data-error="Ingrese solo numeros" data-success="OK"></span>
                         </div>
                     </div>
@@ -184,39 +187,34 @@ class App extends Component {
                         <div className="input-field col s12">
                             <i className="material-icons prefix">contact_mail</i>
                             <input onChange={this.handleChange} id="email" type="email" className="validate" name='email' required/>
-                            <label for="email">Email</label>
+                            <label  htmlFor="email">Email</label>
                             <span className="helper-text" data-error="Formato incorrecto" data-success="OK"></span>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="input-field col s12">
-                        <i className="material-icons prefix">ok</i>
-                        {/* <select multiple={true} value={this.state.zonas.detalle} onChange={(e) =>this.setState({selectedZone: e.target.value})}></select> */}
-
-                            <select  onChange={(e) => this.setState({selectEquipo: e.target.value})}>
-                                <option ></option>
-                                {
-                                    this.state.equipos.map( equipo => <option key={equipo.id}>{equipo.detalle}</option>)
-                                }
-                            </select>
-
-                            <label for="options">Zona</label>
+                        <i className="material-icons prefix"></i>           
+                        <select className='browser-default' defaultValue={'DEFAULT'} onChange={(e) =>this.setState({selectedZone: e.target.value})}>
+                        <option value= "DEFAULT" disabled >Elegi la zona de trabajo</option>
+                            {
+                                this.state.zonas.map( zona => <option value={zona._id} key={zona._id}>{zona.detalle}</option>)
+                            }
+                        </select>
                         </div>
-                    </div>
+                    </div> 
 
 
                     <div className="row">
                         <div className="input-field col s12">
                             <i className="material-icons prefix"></i>
-                            <select   value={this.state.selectedEspeciality} onChange={(e) => this.setState({selectedEspeciality: e.target.value})}>
-                             
+                            <select  className='browser-default' defaultValue={'DEFAULT'} onChange={(e) => this.setState({selectedEspeciality: e.target.value})}>
+                            <option value="DEFAULT" disabled selected>Elegi tu categoria</option>
                                 {
-                                    this.state.especialidades.map( espec => <option key={espec._id}>{espec.detalle}</option>)
+                                    this.state.especialidades.map( espec => <option  value={espec._id} key={espec._id}>{espec.detalle}</option>)
                                 }
                             </select>
                         
-                            <label for="options">Categoria</label>
                         </div>
                     </div>
 
@@ -225,7 +223,7 @@ class App extends Component {
                         <div className="input-field col s12">
                             <i className="material-icons prefix">speaker_notes</i>
                             <textarea onChange={this.handleChange} id="textarea2" className="materialize-textarea" data-length="120" name='descripcion' required></textarea>
-                            <label for="textarea2">Escribi una breve descripcion de ti como profesional</label>
+                            <label htmlFor="textarea2">Escribi una breve descripcion de ti como profesional</label>
                         </div>
                     </div>
                     <div className="row center-align ">
@@ -295,12 +293,15 @@ class App extends Component {
                 <section>
             <div className="container center-align">
                 <h2 data-aos="fade-right">Disponibles</h2>
-                <table className="highlight z-depth-4">
+                <table data-aos="fade-left" className="highlight z-depth-4">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Email</th>
+                            <th>Descripcion</th>
+                            <th>Zona</th>
+                            <th>Especialidad</th>
                         </tr>
                     </thead>
 
@@ -314,6 +315,8 @@ class App extends Component {
                                         <td>{profesional.apellido}</td>
                                         <td>{profesional.email}</td>
                                         <td>{profesional.descripcion}</td>
+                                        <td>{profesional.zona.detalle}</td>
+                                        <td>{profesional.especialidad.detalle}</td>
                                     </tr>
                                 )
                             } )

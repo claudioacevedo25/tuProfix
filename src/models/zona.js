@@ -6,4 +6,4 @@ let zonaSchema = new Schema({
     detalle: {type: String, required: [true, 'Es necesario ingresar un detalle']}
 })
 
-module.exports = mongoose.model('Zonas', zonaSchema)
+module.exports = mongoose.model('Zonas', zonaSchema) 

@@ -8,8 +8,8 @@ let professionalSchema = new Schema({
     telefono: { type: Number, required: [true, 'El telefono es un dato obligatorio'] },
     email: { type: String, required: [true, 'El nombre es obligatorio'] },
     img: { type: String, required: false },
-    zona: { type: Schema.Types.ObjectId, ref: 'zonas', required: [true, 'Es obligatorio seleccionar una zona de trabajo']},
-    especialidad: { type: Schema.Types.ObjectId, ref: 'especialidades', required:[true, 'Es obligatorio elegir una profesion']  },
+    zona: { type: Schema.Types.ObjectId, ref: 'Zonas', required: [true, 'Es obligatorio seleccionar una zona de trabajo']},
+    especialidad: { type: Schema.Types.ObjectId, ref: 'Especialidades', required:[true, 'Es obligatorio elegir una profesion']  },
     descripcion: { type: String, required: [true, 'Es necesario una breve descripcion de ti '] },
 
     
